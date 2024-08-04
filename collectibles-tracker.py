@@ -2,26 +2,28 @@
 import requests 
 from bs4 import BeautifulSoup 
 import csv
-  
-URL = "https://www.pricecharting.com/game/pokemon-evolving-skies/booster-box" 
-r = requests.get(URL) 
-  
-soup = BeautifulSoup(r.content, 'html5lib') # If this line causes an error, run 'pip install html5lib' or install html5lib 
-# print(soup.prettify()) 
 
-price = []
+URLS = ["https://www.pricecharting.com/game/pokemon-evolving-skies/booster-box", "https://www.pricecharting.com/game/pokemon-chilling-reign/booster-box?q=chilling+reign+booster+box", 
+        "https://www.pricecharting.com/game/pokemon-crown-zenith/absol-gg16"]
+prices = []
 
-table = soup.find('span', attrs = {'class':'price js-price'})
-for row in table:
-    price.append(row)
+for url in URLS: 
+    r = requests.get(url) 
+    
+    soup = BeautifulSoup(r.content, 'html5lib') # If this line causes an error, run 'pip install html5lib' or install html5lib 
+    # print(soup.prettify()) 
 
-print(price[0].strip())
 
-"""
+    table = soup.find('span', attrs = {'class':'price js-price'})
+    for row in table:
+        prices.append(float(row.strip()[1:]))
+
+print(prices)
+
 with open('data.csv', 'w') as f:
     # create the csv writer
     writer = csv.writer(f)
 
     # write a row to the csv file
-    for row in soup:
-        writer.writerow(row) """
+    for p in prices:
+        writer.writerow([p]) 
