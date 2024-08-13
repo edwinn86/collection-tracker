@@ -6,17 +6,21 @@ import csv
 URLS = ["https://www.pricecharting.com/game/pokemon-evolving-skies/booster-box", "https://www.pricecharting.com/game/pokemon-chilling-reign/booster-box?q=chilling+reign+booster+box", 
         "https://www.pricecharting.com/game/pokemon-crown-zenith/absol-gg16"]
 
+URL = []
+
 
 with open('collection.csv', mode ='r',)as file:
   csvFile = csv.reader(file)
-  for lines in csvFile:
-        print(lines)
-
+  next(csvFile)
+  for line in csvFile:
+        print(line)
+        URL.append(line[1])
+        print(URL)
 
 
 prices = []
 
-for url in URLS: 
+for url in URL: 
     r = requests.get(url) 
     
     soup = BeautifulSoup(r.content, 'html5lib') # If this line causes an error, run 'pip install html5lib' or install html5lib 
