@@ -5,6 +5,15 @@ import csv
 
 URLS = ["https://www.pricecharting.com/game/pokemon-evolving-skies/booster-box", "https://www.pricecharting.com/game/pokemon-chilling-reign/booster-box?q=chilling+reign+booster+box", 
         "https://www.pricecharting.com/game/pokemon-crown-zenith/absol-gg16"]
+
+
+with open('collection.csv', mode ='r',)as file:
+  csvFile = csv.reader(file)
+  for lines in csvFile:
+        print(lines)
+
+
+
 prices = []
 
 for url in URLS: 
@@ -20,7 +29,7 @@ for url in URLS:
 
 print(prices)
 
-with open('data.csv', 'w') as f:
+with open('values.csv', 'w') as f:
     # create the csv writer
     writer = csv.writer(f)
 
